@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
 * Студент: [Андрей Степанов](https://up.htmlacademy.ru/nodejs-2/5/user/2140935).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Сушко](https://htmlacademy.ru/profile/sashasushko).
 
 ---
 
