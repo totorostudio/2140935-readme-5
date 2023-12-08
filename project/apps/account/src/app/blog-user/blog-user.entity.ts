@@ -6,9 +6,9 @@ import { SALT_ROUNDS } from './blog-user.constant';
 export class BlogUserEntity implements AuthUser, Entity<string> {
   public id?: string;
   public email: string;
-  public firstname: string;
-  public lastname: string;
-  public dateOfBirth: Date;
+  public name: string;
+  public avatar: string;
+  public dateRegister: Date;
   public role: UserRole;
   public passwordHash: string;
 
@@ -20,9 +20,9 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
     return {
       id: this.id,
       email: this.email,
-      firstname: this.firstname,
-      lastname: this.lastname,
-      dateOfBirth: this.dateOfBirth,
+      name: this.name,
+      avatar: this.avatar,
+      dateRegister: this.dateRegister,
       role: this.role,
       passwordHash: this.passwordHash,
     };
@@ -30,9 +30,9 @@ export class BlogUserEntity implements AuthUser, Entity<string> {
 
   public populate(data: AuthUser): void {
     this.email = data.email;
-    this.firstname = data.firstname;
-    this.lastname = data.lastname;
-    this.dateOfBirth = data.dateOfBirth;
+    this.name = data.name;
+    this.avatar = data.avatar;
+    this.dateRegister = data.dateRegister;
     this.role = data.role;
   }
 

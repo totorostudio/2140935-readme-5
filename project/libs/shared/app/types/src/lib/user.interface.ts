@@ -3,8 +3,8 @@ import { UserRole } from './user-role.enum';
 export interface User {
   id?: string;
   email: string;
-  firstname: string;
-  lastname: string;
-  dateOfBirth: Date;
+  name: string;
+  avatar?: string;
+  dateRegister: Date;
   role: UserRole;
 }
