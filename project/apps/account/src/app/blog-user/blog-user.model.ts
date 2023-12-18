@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AuthUser, UserRole } from '@project/libs/shared/app/types';
 
 @Schema({
-  collection: 'users',
+  collection: 'accounts',
   timestamps: true,
 })
 export class BlogUserModel extends Document implements AuthUser {
