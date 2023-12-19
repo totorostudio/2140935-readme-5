@@ -22,7 +22,7 @@ services:
       timeout: 10s
       retries: 5
 
-  readme.user.mongo.ui:
+  readme.account.mongo.ui:
     image: mongo-express
     restart: always
     container_name: readme.account.mongo.ui
