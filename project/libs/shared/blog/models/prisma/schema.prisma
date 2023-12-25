@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output = "../../../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -14,7 +15,7 @@ model Post {
   id             String @id @default(uuid()) @map("id")
   originalId     String @map("original_id")
   isRepost       Boolean @map("is_repost")
-  state          String
+  isDraft        Boolean @map("is_draft")
   type           String
   title          String
   description    String
