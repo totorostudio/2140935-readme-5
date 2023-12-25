@@ -19,11 +19,12 @@ model Post {
   type           String
   title          String
   description    String
-  video          String
+  videoUrl       String @map("video_url")
+  photoUrl       String @map("photo_url")
   quote          String
   quoteAuthor    String @map("quote_author")
   content        String
-  url            String
+  linkUrl        String @map("link_url")
   likesCount     Int @map("likes_count")
   commentsCount  Int @map("comments_count")
   tags           Tag[]
