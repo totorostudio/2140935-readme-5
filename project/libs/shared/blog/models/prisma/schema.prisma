@@ -9,3 +9,21 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Post {
+  id          String   @id @default(uuid()) @map("id")
+  type        String
+  title       String
+  description String
+  video       String
+  quote       String
+  quoteAuthor String @map("quote_author")
+  content     String
+  url         String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  userId      String @map("user_id")
+
+  @@index([title])
+  @@map("posts")
+}
