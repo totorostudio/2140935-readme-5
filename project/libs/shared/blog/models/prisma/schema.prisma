@@ -20,10 +20,21 @@ model Post {
   quoteAuthor String @map("quote_author")
   content     String
   url         String
+  tags        Tag[]
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   userId      String @map("user_id")
 
   @@index([title])
   @@map("posts")
+}
+
+model Tag {
+  id        String  @id @default(uuid())
+  title     String
+  posts     Post[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@index([title])
+  @@map("tags")
 }
