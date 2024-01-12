@@ -1,7 +1,7 @@
 import { Tag } from '@project/libs/shared/app/types';
 import { Entity } from '@project/shared/core';
 
-export class BlogTagEntity implements Tag, Entity<string> {
+export class BlogTagEntity implements Tag, Entity<string, Tag> {
   public id?: string;
   public title: string;
   public createdAt?: Date;
@@ -16,18 +16,22 @@ export class BlogTagEntity implements Tag, Entity<string> {
   }
 
   public populate(data: Tag): void {
-    this.id = data.id ?? '';
+    this.id = data.id ?? undefined;
     this.title = data.title;
     this.updatedAt = data.updatedAt ?? undefined;
     this.createdAt = data.createdAt ?? undefined;
   }
 
-  public toPOJO(): Record<string, unknown> {
+  public toPOJO(): Tag {
     return {
       id: this.id,
       title: this.title,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     }
+  }
+
+  static fromObject(data: Tag): BlogTagEntity {
+    return new BlogTagEntity(data);
   }
 }
