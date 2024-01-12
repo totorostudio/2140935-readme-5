@@ -18,9 +18,9 @@ export class BlogTagController {
 
   @Get('/')
   public async index() {
-    const blogTagEntities = await this.blogTagService.getAllCategories();
-    const categories = blogTagEntities.map((blogTag) => blogTag.toPOJO());
-    return fillDto(TagRdo, categories);
+    const blogTagEntities = await this.blogTagService.getAllTags();
+    const tags = blogTagEntities.map((blogTag) => blogTag.toPOJO());
+    return fillDto(TagRdo, tags);
   }
 
   @Post('/')

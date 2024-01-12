@@ -15,7 +15,7 @@ export class BlogTagService {
     return this.blogTagRepository.findById(id);
   }
 
-  public async getAllCategories(): Promise<BlogTagEntity[]> {
+  public async getAllTags(): Promise<BlogTagEntity[]> {
     return await this.blogTagRepository.find();
   }
 
