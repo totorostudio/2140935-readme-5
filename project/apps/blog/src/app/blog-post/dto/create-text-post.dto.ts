@@ -1,6 +1,6 @@
-import { ArrayNotEmpty, IsArray, IsMongoId, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsBoolean, IsMongoId, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-export class CreatePostDto {
+export class CreateTextPostDto {
   @IsString()
   @IsNotEmpty()
   public title: string;
@@ -21,4 +21,10 @@ export class CreatePostDto {
   @IsArray()
   @ArrayNotEmpty()
   public tags: string[];
+
+  @IsBoolean()
+  public isRepost: boolean;
+
+  @IsBoolean()
+  public isDraft: boolean;
 }
