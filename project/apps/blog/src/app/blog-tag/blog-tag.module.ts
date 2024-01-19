@@ -8,6 +8,7 @@ import { BlogTagService } from './blog-tag.service';
 @Module({
   imports: [PrismaClientModule],
   providers: [BlogTagRepository, BlogTagService],
-  controllers: [BlogTagController]
+  controllers: [BlogTagController],
+  exports: [BlogTagService],
 })
 export class BlogTagModule {}

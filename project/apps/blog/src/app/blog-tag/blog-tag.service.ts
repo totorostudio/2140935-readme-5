@@ -49,4 +49,19 @@ export class BlogTagService {
       throw new NotFoundException(`Tag with ID ${id} not found`);
     }
   }
+
+  public async getTagsByIds(tagIds: string[]): Promise<BlogTagEntity[]> {
+    const tags = await this.blogTagRepository.findByIds(tagIds);
+
+    if (tags.length !== tagIds.length) {
+      const foundTagIds = tags.map((tag) => tag.id);
+      const notFoundTagIds = tagIds.filter((tagId) => !foundTagIds.includes(tagId));
+
+      if (notFoundTagIds.length > 0) {
+        throw new NotFoundException(`Categories with ids ${notFoundTagIds.join(', ')} not found.`);
+      }
+    }
+
+    return categories;
+  }
 }
