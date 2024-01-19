@@ -4,4 +4,4 @@ import { UpdateVideoPostDto } from './update-video-post.dto';
 import { UpdateQuotePostDto } from './update-quote-post.dto';
 import { UpdateTextPostDto } from './update-text-post.dto';
 
-export type UpdatePostDto = UpdateTextPostDto | UpdateVideoPostDto | UpdateLinkPostDto | UpdatePhotoPostDto | UpdateQuotePostDto;
+export type UpdateBlogPostDto = UpdateTextPostDto | UpdateVideoPostDto | UpdateLinkPostDto | UpdatePhotoPostDto | UpdateQuotePostDto;

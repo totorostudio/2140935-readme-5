@@ -7,6 +7,7 @@ import { BasePostgresRepository } from '@project/shared/core';
 import { BlogPostEntity } from './blog-post.entity';
 import { BlogPostQuery } from './query/blog-post.query';
 
+//TODO Разобраться с типами
 @Injectable()
 export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, Post> {
   constructor(
