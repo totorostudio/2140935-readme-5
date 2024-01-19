@@ -1,12 +1,12 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { CreateBasePostDto } from './create-base-post.dto';
 
-export class CreateTextPostDto extends CreateBasePostDto {
+export class CreateQuotePostDto extends CreateBasePostDto {
   @IsString()
   @IsNotEmpty()
-  public description: string;
+  public quote: string;
 
   @IsString()
   @IsNotEmpty()
-  public content: string;
+  public quoteAuthor: string;
 }

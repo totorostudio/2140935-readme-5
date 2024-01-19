@@ -1,12 +1,8 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { CreateBasePostDto } from './create-base-post.dto';
 
-export class CreateTextPostDto extends CreateBasePostDto {
+export class CreateVideoPostDto extends CreateBasePostDto {
   @IsString()
   @IsNotEmpty()
-  public description: string;
-
-  @IsString()
-  @IsNotEmpty()
-  public content: string;
+  public videoUrl: string;
 }
