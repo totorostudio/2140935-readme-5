@@ -15,6 +15,14 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     super(client, BlogPostEntity.fromObject);
   }
 
+  private async getPostCount(where: Prisma.PostWhereInput): Promise<number> {
+    return this.client.post.count({ where });
+  }
+
+  private calculatePostsPage(totalCount: number, limit: number): number {
+    return Math.ceil(totalCount / limit);
+  }
+
   public async save(entity: BlogPostEntity): Promise<BlogPostEntity> {
     const pojoEntity = entity.toPOJO();
     const record = await this.client.post.create({
@@ -60,5 +68,63 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     return this.createEntityFromDocument(document);
   }
 
+  public async update(id: string, entity: BlogPostEntity): Promise<BlogPostEntity> {
+    const pojoEntity = entity.toPOJO();
+    const updatedPost = await this.client.post.update({
+      where: { id },
+      data: {
+        title: pojoEntity.title,
+        content: pojoEntity.content,
+        description: pojoEntity.description,
+        tags: {
+          set: pojoEntity.tags.map((tag) => ({ id: tag.id })),
+        }
+      },
+      include: {
+        tags: true,
+        comments: true,
+      }
+    });
 
+    return this.createEntityFromDocument(updatedPost);
+  }
+
+  public async find(query?: BlogPostQuery): Promise<PaginationResult<BlogPostEntity>> {
+    const skip = query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
+    const take = query?.limit;
+    const where: Prisma.PostWhereInput = {};
+    const orderBy: Prisma.PostOrderByWithRelationInput = {};
+
+    if (query?.tags) {
+      where.tags = {
+        some: {
+          id: {
+            in: query.tags
+          }
+        }
+      }
+    }
+
+    if (query?.sortDirection) {
+      orderBy.createdAt = query.sortDirection;
+    }
+
+    const [records, postCount] = await Promise.all([
+      this.client.post.findMany({ where, orderBy, skip, take,
+        include: {
+          tags: true,
+          comments: true,
+        },
+      }),
+      this.getPostCount(where),
+    ]);
+
+    return {
+      entities: records.map((record) => this.createEntityFromDocument(record)),
+      currentPage: query?.page,
+      totalPages: this.calculatePostsPage(postCount, take),
+      itemsPerPage: take,
+      totalItems: postCount,
+    }
+  }
 }
