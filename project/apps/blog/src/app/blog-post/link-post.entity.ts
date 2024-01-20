@@ -1,7 +1,6 @@
 import { LinkPost } from '@project/libs/shared/app/types';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../blog-tag/blog-tag.entity';
-import { BlogCommentEntity } from '../blog-comment/blog-comment.entity';
 import { CreateLinkPostDto } from './dto/create-link-post.dto';
 import { BasePostEntity } from './base-post.entity';
 
