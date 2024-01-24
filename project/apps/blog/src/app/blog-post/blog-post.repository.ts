@@ -5,6 +5,7 @@ import { PaginationResult, Post } from '@project/libs/shared/app/types';
 import { PrismaClientService } from '@project/shared/blog/models';
 import { BasePostgresRepository } from '@project/shared/core';
 import { BlogPostEntity } from './blog-post.entity';
+import { BasePostEntity } from './base-post.entity';
 import { BlogPostQuery } from './query/blog-post.query';
 
 //TODO Разобраться с типами
@@ -13,7 +14,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
   constructor(
     protected readonly client: PrismaClientService,
   ) {
-    super(client, BlogPostEntity.fromObject);
+    super(client, BasePostEntity.fromObject);
   }
 
   private async getPostCount(where: Prisma.PostWhereInput): Promise<number> {
@@ -24,7 +25,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     return Math.ceil(totalCount / limit);
   }
 
-  public async save(entity: BlogPostEntity): Promise<BlogPostEntity> {
+  public async save(entity: BasePostEntity): Promise<BlogPostEntity> {
     const pojoEntity = entity.toPOJO();
     const record = await this.client.post.create({
       data: {

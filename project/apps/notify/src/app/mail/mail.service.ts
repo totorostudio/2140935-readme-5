@@ -20,7 +20,7 @@ export class MailService {
       subject: EMAIL_ADD_SUBSCRIBER_SUBJECT,
       template: './add-subscriber',
       context: {
-        user: `${subscriber.name} ${subscriber.name}`,
+        user: `${subscriber.name}`,
         email: `${subscriber.email}`,
       }
     })

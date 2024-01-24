@@ -1,7 +1,8 @@
-import { BasePost, PostType } from '@project/libs/shared/app/types';
+import { BasePost, PostType, Post } from '@project/libs/shared/app/types';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../blog-tag/blog-tag.entity';
 import { BlogCommentEntity } from '../blog-comment/blog-comment.entity';
+import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 
 export abstract class BasePostEntity implements BasePost, Entity<string, BasePost> {
   public id?: string;
@@ -55,5 +56,13 @@ export abstract class BasePostEntity implements BasePost, Entity<string, BasePos
       originalAuthor: this.originalAuthor,
       userId: this.userId,
     }
+  }
+
+  static fromObject(): BasePostEntity {
+    throw new Error('Not implemented');
+  }
+
+  static fromDto(): BasePostEntity {
+   throw new Error('Not implemented');
   }
 }
