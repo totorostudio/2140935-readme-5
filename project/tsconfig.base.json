@@ -20,6 +20,9 @@
       "@project/shared/config/account": [
         "libs/shared/config/account/src/index.ts"
       ],
+      "@project/shared/config/file-storage": [
+        "libs/shared/config/file-storage/src/index.ts"
+      ],
       "@project/shared/core": ["libs/shared/core/src/index.ts"],
       "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"]
     }
