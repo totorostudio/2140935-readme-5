@@ -23,6 +23,9 @@
       "@project/shared/config/file-storage": [
         "libs/shared/config/file-storage/src/index.ts"
       ],
+      "@project/shared/config/notify": [
+        "libs/shared/config/notify/src/index.ts"
+      ],
       "@project/shared/core": ["libs/shared/core/src/index.ts"],
       "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"]
     }
