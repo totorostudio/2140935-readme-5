@@ -1,7 +1,7 @@
 import { VideoPost } from '@project/libs/shared/app/types';
 import { Entity } from '@project/shared/core';
-import { BlogTagEntity } from '../blog-tag/blog-tag.entity';
-import { CreateVideoPostDto } from './dto/create-video-post.dto';
+import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
+import { CreateVideoPostDto } from '../dto/create-video-post.dto';
 import { BasePostEntity } from './base-post.entity';
 
 export class VideoPostEntity extends BasePostEntity implements VideoPost, Entity<string, VideoPost> {

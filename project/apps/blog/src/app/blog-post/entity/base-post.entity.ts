@@ -1,7 +1,7 @@
 import { BasePost, PostType } from '@project/libs/shared/app/types';
 import { Entity } from '@project/shared/core';
-import { BlogTagEntity } from '../blog-tag/blog-tag.entity';
-import { BlogCommentEntity } from '../blog-comment/blog-comment.entity';
+import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
+import { BlogCommentEntity } from '../../blog-comment/blog-comment.entity';
 
 export abstract class BasePostEntity implements BasePost, Entity<string, BasePost> {
   public id?: string;

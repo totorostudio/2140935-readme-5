@@ -1,7 +1,7 @@
 import { TextPost } from '@project/libs/shared/app/types';
 import { Entity } from '@project/shared/core';
-import { BlogTagEntity } from '../blog-tag/blog-tag.entity';
-import { CreateTextPostDto } from './dto/create-text-post.dto';
+import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
+import { CreateTextPostDto } from '../dto/create-text-post.dto';
 import { BasePostEntity } from './base-post.entity';
 
 export class TextPostEntity extends BasePostEntity implements TextPost, Entity<string, TextPost> {

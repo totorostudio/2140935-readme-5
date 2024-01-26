@@ -1,7 +1,7 @@
 import { LinkPost } from '@project/libs/shared/app/types';
 import { Entity } from '@project/shared/core';
-import { BlogTagEntity } from '../blog-tag/blog-tag.entity';
-import { CreateLinkPostDto } from './dto/create-link-post.dto';
+import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
+import { CreateLinkPostDto } from '../dto/create-link-post.dto';
 import { BasePostEntity } from './base-post.entity';
 
 export class LinkPostEntity extends BasePostEntity implements LinkPost, Entity<string, LinkPost> {
