@@ -7,6 +7,8 @@ import { BlogUserModule } from '../blog-user/blog-user.module';
 import { getJwtOptions } from '@project/shared/config/account';
 import { JwtAccessStrategy } from './strategies/jwt-access.strategy';
 import { NotifyModule } from '../notify/notify.module';
+import { LocalStrategy } from './strategies/local.strategy';
+import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { NotifyModule } from '../notify/notify.module';
   providers: [
     AuthenticationService,
     JwtAccessStrategy,
+    LocalStrategy,
+    JwtRefreshStrategy,
   ]
 })
 export class AuthenticationModule {}

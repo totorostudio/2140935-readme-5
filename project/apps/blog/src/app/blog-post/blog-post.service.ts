@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { BlogPostRepository } from './blog-post.repository';
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
-import { BlogPostEntity } from './blog-post.entity';
+import { BlogPostEntity } from './entity/blog-post.entity';
 import { BlogPostQuery } from './query/blog-post.query';
 import { PaginationResult } from '@project/libs/shared/app/types';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';

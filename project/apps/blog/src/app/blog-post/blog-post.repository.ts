@@ -4,9 +4,9 @@ import { Prisma } from '@prisma/client';
 import { PaginationResult, Post } from '@project/libs/shared/app/types';
 import { PrismaClientService } from '@project/shared/blog/models';
 import { BasePostgresRepository } from '@project/shared/core';
-import { BlogPostEntity } from './blog-post.entity';
-import { BasePostEntity } from './base-post.entity';
+import { BlogPostEntity } from './entity/blog-post.entity';
 import { BlogPostQuery } from './query/blog-post.query';
+import { PostEntityFactory } from './entity/post-entity.factory';
 
 //TODO Разобраться с типами
 @Injectable()
@@ -14,7 +14,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
   constructor(
     protected readonly client: PrismaClientService,
   ) {
-    super(client, BasePostEntity.fromObject);
+    super(client, PostEntityFactory);
   }
 
   private async getPostCount(where: Prisma.PostWhereInput): Promise<number> {
@@ -25,7 +25,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     return Math.ceil(totalCount / limit);
   }
 
-  public async save(entity: BasePostEntity): Promise<BlogPostEntity> {
+  public async save(entity: BlogPostEntity): Promise<BlogPostEntity> {
     const pojoEntity = entity.toPOJO();
     const record = await this.client.post.create({
       data: {
@@ -76,8 +76,6 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
       where: { id },
       data: {
         title: pojoEntity.title,
-        content: pojoEntity.content,
-        description: pojoEntity.description,
         tags: {
           set: pojoEntity.tags.map((tag) => ({ id: tag.id })),
         }
