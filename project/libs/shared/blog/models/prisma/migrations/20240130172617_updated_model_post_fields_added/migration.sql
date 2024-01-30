@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "posts" ALTER COLUMN "is_repost" DROP NOT NULL,
+ALTER COLUMN "original_id" DROP NOT NULL,
+ALTER COLUMN "is_draft" DROP NOT NULL;

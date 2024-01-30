@@ -58,10 +58,10 @@ export class BlogTagService {
       const notFoundTagIds = tagIds.filter((tagId) => !foundTagIds.includes(tagId));
 
       if (notFoundTagIds.length > 0) {
-        throw new NotFoundException(`Categories with ids ${notFoundTagIds.join(', ')} not found.`);
+        throw new NotFoundException(`Tags with ids ${notFoundTagIds.join(', ')} not found.`);
       }
     }
 
-    return categories;
+    return tags;
   }
 }

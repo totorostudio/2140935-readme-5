@@ -6,7 +6,7 @@ import {
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
 import { fillDto } from '@project/shared/helpers';
-import { BlogPostRdo } from './rdo/blog-post.rdo';
+import { BasePostRdo } from './rdo/base-post.rdo';
 import { BlogPostService } from './blog-post.service';
 import { BlogPostQuery } from './query/blog-post.query';
 import { BlogPostWithPaginationRdo } from './rdo/blog-post-with-pagination.rdo';
@@ -20,7 +20,7 @@ export class BlogPostController {
   @Get('/:id')
   public async show(@Param('id') id: string) {
     const post = await this.blogPostService.getPost(id);
-    return fillDto(BlogPostRdo, post.toPOJO());
+    return fillDto(BasePostRdo, post.toPOJO());
   }
 
   @Get('/')
@@ -36,7 +36,7 @@ export class BlogPostController {
   @Post('/')
   public async create(@Body() dto: CreateBlogPostDto) {
     const newPost = await this.blogPostService.createPost(dto);
-    return fillDto(BlogPostRdo, newPost.toPOJO());
+    return fillDto(BasePostRdo, newPost.toPOJO());
   }
 
   @Delete('/:id')
@@ -48,6 +48,6 @@ export class BlogPostController {
   @Patch('/:id')
   public async update(@Param('id') id: string, @Body() dto: UpdateBlogPostDto) {
     const updatedPost = await this.blogPostService.updatePost(id, dto);
-    return fillDto(BlogPostRdo, updatedPost.toPOJO());
+    return fillDto(BasePostRdo, updatedPost.toPOJO());
   }
 }

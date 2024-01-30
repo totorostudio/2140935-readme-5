@@ -35,3 +35,5 @@ services:
 
 volumes:
   readme.mongo.account:
+
+# docker compose --file ./apps/account/docker-compose.dev.yml --env-file ./apps/account/account.env --project-name "readme-account" up -d
