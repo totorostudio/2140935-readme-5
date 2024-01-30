@@ -37,6 +37,10 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
         comments: {
           connect: []
         }
+      },
+      include: {
+        comments: true,
+        tags: true
       }
     });
 

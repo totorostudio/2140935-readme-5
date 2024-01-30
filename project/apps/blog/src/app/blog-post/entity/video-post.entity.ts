@@ -1,4 +1,5 @@
 import { VideoPost } from '@project/libs/shared/app/types';
+import { PostType } from '.prisma/client';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
 import { CreateVideoPostDto } from '../dto/create-video-post.dto';
@@ -9,10 +10,10 @@ export class VideoPostEntity extends BasePostEntity implements VideoPost, Entity
 
   constructor (post: VideoPost) {
     super(post);
-    this.populate(post);
   }
 
   public populate(data: VideoPost): VideoPostEntity {
+    super.populate(data);
     this.videoUrl = data.videoUrl;
 
     return this;
@@ -31,14 +32,16 @@ export class VideoPostEntity extends BasePostEntity implements VideoPost, Entity
   }
 
   static fromDto(dto: CreateVideoPostDto, tags: BlogTagEntity[]): VideoPostEntity {
-    const entity = new VideoPostEntity();
-    entity.title = dto.title;
-    entity.userId = dto.userId;
-    entity.tags = tags;
-    entity.comments = [];
-    entity.isRepost = dto.isRepost;
-    entity.isDraft = dto.isDraft;
-    entity.videoUrl = dto.videoUrl;
+    const videoPost: VideoPost = {
+      ...dto,
+      type: PostType.video,
+      comments: [],
+      tags: tags.map(tag => tag.toPOJO()),
+      isRepost: dto.isRepost ?? undefined,
+      isDraft: dto.isDraft ?? undefined,
+    };
+
+    const entity = new VideoPostEntity(videoPost);
 
     return entity;
   }

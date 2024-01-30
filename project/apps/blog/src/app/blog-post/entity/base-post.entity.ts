@@ -1,4 +1,5 @@
-import { BasePost, PostType } from '@project/libs/shared/app/types';
+import { BasePost } from '@project/libs/shared/app/types';
+import { PostType } from '.prisma/client';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
 import { BlogCommentEntity } from '../../blog-comment/blog-comment.entity';

@@ -7,6 +7,7 @@ import { BlogPostQuery } from './query/blog-post.query';
 import { PaginationResult } from '@project/libs/shared/app/types';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
 import { BlogTagService } from '../blog-tag/blog-tag.service';
+import { PostEntityFactory } from './post-entity.factory';
 
 @Injectable()
 export class BlogPostService {
@@ -21,7 +22,7 @@ export class BlogPostService {
 
   public async createPost(dto: CreateBlogPostDto): Promise<BlogPostEntity> {
     const tags = await this.blogTagService.getTagsByIds(dto.tags);
-    const newPost = BlogPostEntity.fromDto(dto, tags);
+    const newPost = PostEntityFactory({...dto, tags, comments: []});
     await this.blogPostRepository.save(newPost);
 
     return newPost;

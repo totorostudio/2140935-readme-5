@@ -1,4 +1,5 @@
 import { LinkPost } from '@project/libs/shared/app/types';
+import { PostType } from '.prisma/client';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
 import { CreateLinkPostDto } from '../dto/create-link-post.dto';
@@ -8,7 +9,12 @@ export class LinkPostEntity extends BasePostEntity implements LinkPost, Entity<s
   public description: string;
   public linkUrl: string;
 
+  constructor (post: LinkPost) {
+    super(post);
+  }
+
   public populate(data: LinkPost): LinkPostEntity {
+    super.populate(data);
     this.description = data.description;
     this.linkUrl = data.linkUrl;
 
@@ -24,20 +30,21 @@ export class LinkPostEntity extends BasePostEntity implements LinkPost, Entity<s
   }
 
   static fromObject(data: LinkPost): LinkPostEntity {
-    return new LinkPostEntity()
+    return new LinkPostEntity(data)
       .populate(data);
   }
 
   static fromDto(dto: CreateLinkPostDto, tags: BlogTagEntity[]): LinkPostEntity {
-    const entity = new LinkPostEntity();
-    entity.title = dto.title;
-    entity.userId = dto.userId;
-    entity.tags = tags;
-    entity.comments = [];
-    entity.isRepost = dto.isRepost;
-    entity.isDraft = dto.isDraft;
-    entity.description = dto.description;
-    entity.linkUrl = dto.linkUrl;
+    const linkPost: LinkPost = {
+      ...dto,
+      type: PostType.link,
+      comments: [],
+      tags: tags.map(tag => tag.toPOJO()),
+      isRepost: dto.isRepost ?? undefined,
+      isDraft: dto.isDraft ?? undefined,
+    };
+
+    const entity = new LinkPostEntity(linkPost);
 
     return entity;
   }

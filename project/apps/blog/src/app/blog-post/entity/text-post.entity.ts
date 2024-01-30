@@ -1,4 +1,5 @@
 import { TextPost } from '@project/libs/shared/app/types';
+import { PostType } from '.prisma/client';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
 import { CreateTextPostDto } from '../dto/create-text-post.dto';
@@ -10,10 +11,10 @@ export class TextPostEntity extends BasePostEntity implements TextPost, Entity<s
 
   constructor (post: TextPost) {
     super(post);
-    this.populate(post);
   }
 
   public populate(data: TextPost): TextPostEntity {
+    super.populate(data);
     this.description = data.description;
     this.content = data.content;
 
@@ -34,15 +35,16 @@ export class TextPostEntity extends BasePostEntity implements TextPost, Entity<s
   }
 
   static fromDto(dto: CreateTextPostDto, tags: BlogTagEntity[]): TextPostEntity {
-    const entity = new TextPostEntity();
-    entity.title = dto.title;
-    entity.userId = dto.userId;
-    entity.tags = tags;
-    entity.comments = [];
-    entity.isRepost = dto.isRepost;
-    entity.isDraft = dto.isDraft;
-    entity.description = dto.description;
-    entity.content = dto.content;
+    const textPost: TextPost = {
+      ...dto,
+      type: PostType.text,
+      comments: [],
+      tags: tags.map(tag => tag.toPOJO()),
+      isRepost: dto.isRepost ?? undefined,
+      isDraft: dto.isDraft ?? undefined,
+    };
+
+    const entity = new TextPostEntity(textPost);
 
     return entity;
   }

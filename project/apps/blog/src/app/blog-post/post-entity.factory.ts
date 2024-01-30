@@ -11,5 +11,11 @@ export const PostEntityAdapter = {
 }
 
 export function PostEntityFactory (post: Post): BlogPostEntity {
-  return new PostEntityAdapter[post.type](post);
+  const PostEntityConstructor = PostEntityAdapter[post.type];
+
+  if (PostEntityConstructor) {
+    return new (PostEntityConstructor as new (post: Post) => BlogPostEntity)(post);
+  } else {
+    throw new Error(`Unsupported post type: ${post.type}`);
+  }
 }
