@@ -19,6 +19,23 @@ export abstract class BasePostEntity implements BasePost, Entity<string, BasePos
   public originalAuthor?: string;
   public userId: string;
 
+  constructor (data: BasePost) {
+    this.id = data.id ?? undefined;
+    this.originalId = data.originalId ?? undefined;
+    this.isRepost = data.isRepost;
+    this.isDraft = data.isDraft;
+    this.type = data.type;
+    this.title = data.title;
+    this.likesCount = data.likesCount;
+    this.commentsCount = data.commentsCount;
+    this.tags = data.tags.map((tag) => BlogTagEntity.fromObject(tag));
+    this.comments = [];
+    this.createdAt = data.createdAt ?? undefined;
+    this.updatedAt = data.updatedAt ?? undefined;
+    this.originalAuthor = data.originalAuthor;
+    this.userId = data.userId;
+  }
+
   public populate(data: BasePost): BasePostEntity {
     this.id = data.id ?? undefined;
     this.originalId = data.originalId ?? undefined;

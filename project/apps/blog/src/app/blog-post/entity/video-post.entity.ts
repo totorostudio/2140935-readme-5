@@ -7,6 +7,11 @@ import { BasePostEntity } from './base-post.entity';
 export class VideoPostEntity extends BasePostEntity implements VideoPost, Entity<string, VideoPost> {
   public videoUrl: string;
 
+  constructor (post: VideoPost) {
+    super(post);
+    this.populate(post);
+  }
+
   public populate(data: VideoPost): VideoPostEntity {
     this.videoUrl = data.videoUrl;
 
@@ -21,7 +26,7 @@ export class VideoPostEntity extends BasePostEntity implements VideoPost, Entity
   }
 
   static fromObject(data: VideoPost): VideoPostEntity {
-    return new VideoPostEntity()
+    return new VideoPostEntity(data)
       .populate(data);
   }
 

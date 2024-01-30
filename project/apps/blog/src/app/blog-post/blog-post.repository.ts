@@ -6,7 +6,7 @@ import { PrismaClientService } from '@project/shared/blog/models';
 import { BasePostgresRepository } from '@project/shared/core';
 import { BlogPostEntity } from './entity/blog-post.entity';
 import { BlogPostQuery } from './query/blog-post.query';
-import { PostEntityFactory } from './entity/post-entity.factory';
+import { PostEntityFactory } from './post-entity.factory';
 
 //TODO Разобраться с типами
 @Injectable()

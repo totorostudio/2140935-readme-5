@@ -8,6 +8,11 @@ export class TextPostEntity extends BasePostEntity implements TextPost, Entity<s
   public description: string;
   public content: string;
 
+  constructor (post: TextPost) {
+    super(post);
+    this.populate(post);
+  }
+
   public populate(data: TextPost): TextPostEntity {
     this.description = data.description;
     this.content = data.content;
@@ -24,7 +29,7 @@ export class TextPostEntity extends BasePostEntity implements TextPost, Entity<s
   }
 
   static fromObject(data: TextPost): TextPostEntity {
-    return new TextPostEntity()
+    return new TextPostEntity(data)
       .populate(data);
   }
 

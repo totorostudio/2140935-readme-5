@@ -1,6 +1,6 @@
 import { PostType, Post } from '@project/libs/shared/app/types';
-import { QuotePostEntity, LinkPostEntity, PhotoPostEntity, TextPostEntity, VideoPostEntity } from './index';
-import { BlogPostEntity } from './blog-post.entity';
+import { QuotePostEntity, LinkPostEntity, PhotoPostEntity, TextPostEntity, VideoPostEntity } from './entity/index';
+import { BlogPostEntity } from './entity/blog-post.entity';
 
 export const PostEntityAdapter = {
   [PostType.TEXT]: TextPostEntity,
@@ -11,5 +11,5 @@ export const PostEntityAdapter = {
 }
 
 export function PostEntityFactory (post: Post): BlogPostEntity {
-  return new PostEntityAdapter[post.type]();
+  return new PostEntityAdapter[post.type](post);
 }
