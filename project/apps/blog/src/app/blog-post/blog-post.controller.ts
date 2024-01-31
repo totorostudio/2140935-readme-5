@@ -1,14 +1,10 @@
-import {
-  Body, Controller, Delete, Get, HttpCode, HttpStatus,
-  Param, Patch, Post, Query
-} from '@nestjs/common';
-
-import { CreateBlogPostDto } from './dto/create-blog-post.dto';
-import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from '@nestjs/common';
+import { CreateBlogPostDtoType } from './dto/create-blog-post.dto';
+import { UpdateBlogPostDtoType } from './dto/update-blog-post.dto';
 import { fillDto } from '@project/shared/helpers';
-import { BasePostRdo } from './rdo/base-post.rdo';
+import { BlogPostRdo } from './rdo/blog-post.rdo';
 import { BlogPostService } from './blog-post.service';
-import { BlogPostQuery } from './query/blog-post.query';
+import { BlogPostQuery } from '@project/shared/blog/dto';
 import { BlogPostWithPaginationRdo } from './rdo/blog-post-with-pagination.rdo';
 
 @Controller('posts')
@@ -20,7 +16,7 @@ export class BlogPostController {
   @Get('/:id')
   public async show(@Param('id') id: string) {
     const post = await this.blogPostService.getPost(id);
-    return fillDto(BasePostRdo, post.toPOJO());
+    return fillDto(BlogPostRdo, post.toPOJO());
   }
 
   @Get('/')
@@ -34,9 +30,9 @@ export class BlogPostController {
   }
 
   @Post('/')
-  public async create(@Body() dto: CreateBlogPostDto) {
+  public async create(@Body() dto: CreateBlogPostDtoType) {
     const newPost = await this.blogPostService.createPost(dto);
-    return fillDto(BasePostRdo, newPost.toPOJO());
+    return fillDto(BlogPostRdo, newPost.toPOJO());
   }
 
   @Delete('/:id')
@@ -46,8 +42,8 @@ export class BlogPostController {
   }
 
   @Patch('/:id')
-  public async update(@Param('id') id: string, @Body() dto: UpdateBlogPostDto) {
+  public async update(@Param('id') id: string, @Body() dto: UpdateBlogPostDtoType) {
     const updatedPost = await this.blogPostService.updatePost(id, dto);
-    return fillDto(BasePostRdo, updatedPost.toPOJO());
+    return fillDto(BlogPostRdo, updatedPost.toPOJO());
   }
 }

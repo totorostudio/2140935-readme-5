@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { PostType } from '.prisma/client';
 
 const FIRST_TAG_UUID = '39614113-7ad5-45b6-8093-06455437e1e2';
 const SECOND_TAG_UUID = 'efd775e2-df55-4e0e-a308-58249f5ea202';
@@ -21,7 +22,7 @@ function getPosts() {
     {
       id: FIRST_POST_UUID,
       title: 'Худеющий',
-      type: 'text',
+      type: PostType.text,
       userId: FIRST_USER_ID,
       content: 'Недавно прочитал страшный роман «Худеющий».',
       description: 'На мой взгляд, это один из самых страшных романов Стивена Кинга.',
@@ -32,7 +33,7 @@ function getPosts() {
     {
       id: SECOND_POST_UUID,
       title: 'Вы не знаете JavaScript',
-      type: 'text',
+      type: PostType.text,
       userId: FIRST_USER_ID,
       content: 'Полезная книга по JavaScript',
       description: 'Секреты и тайные знания по JavaScript.',
@@ -80,12 +81,7 @@ async function seedDb(prismaClient: PrismaClient) {
         type: post.type,
         title: post.title,
         description: post.description,
-        videoUrl: '',
-        photoUrl: '',
-        quote: '',
-        quoteAuthor: '',
         content: post.content,
-        linkUrl: '',
         likesCount: 0,
         commentsCount: 0,
         tags: post.tags,

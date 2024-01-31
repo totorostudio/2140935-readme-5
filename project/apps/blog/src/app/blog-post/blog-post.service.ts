@@ -1,13 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { BlogPostRepository } from './blog-post.repository';
-import { CreateBlogPostDto } from './dto/create-blog-post.dto';
-import { BlogPostEntity } from './entity/blog-post.entity';
-import { BlogPostQuery } from './query/blog-post.query';
+import { CreateBlogPostDtoType } from './dto/create-blog-post.dto';
+import { BlogPostQuery } from '@project/shared/blog/dto';
 import { PaginationResult } from '@project/libs/shared/app/types';
-import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
+import { UpdateBlogPostDtoType } from './dto/update-blog-post.dto';
 import { BlogTagService } from '../blog-tag/blog-tag.service';
-import { PostEntityFactory } from './post-entity.factory';
+import { PostEntityFactory, BlogPostEntityType } from './post-entity.factory';
 
 @Injectable()
 export class BlogPostService {
@@ -16,11 +15,11 @@ export class BlogPostService {
     private readonly blogTagService: BlogTagService,
   ) {}
 
-  public async getAllPosts(query?: BlogPostQuery): Promise<PaginationResult<BlogPostEntity>> {
+  public async getAllPosts(query?: BlogPostQuery): Promise<PaginationResult<BlogPostEntityType>> {
     return this.blogPostRepository.find(query);
   }
 
-  public async createPost(dto: CreateBlogPostDto): Promise<BlogPostEntity> {
+  public async createPost(dto: CreateBlogPostDtoType): Promise<BlogPostEntityType> {
     const tags = await this.blogTagService.getTagsByIds(dto.tags);
     const newPost = PostEntityFactory({...dto, tags, comments: []});
     await this.blogPostRepository.save(newPost);
@@ -36,11 +35,11 @@ export class BlogPostService {
     }
   }
 
-  public async getPost(id: string): Promise<BlogPostEntity> {
+  public async getPost(id: string): Promise<BlogPostEntityType> {
     return this.blogPostRepository.findById(id);
   }
 
-  public async updatePost(id: string, dto: UpdateBlogPostDto): Promise<BlogPostEntity> {
+  public async updatePost(id: string, dto: UpdateBlogPostDtoType): Promise<BlogPostEntityType> {
     const existsPost = await this.blogPostRepository.findById(id);
     let isSameTags = true;
     let hasChanges = false;
