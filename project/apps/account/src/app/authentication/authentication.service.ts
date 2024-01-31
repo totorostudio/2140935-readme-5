@@ -4,10 +4,8 @@ import { Token, TokenPayload, User, UserRole } from '@project/libs/shared/app/ty
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import { BlogUserRepository } from '../blog-user/blog-user.repository';
-import { CreateUserDto } from './dto/create-user.dto';
-import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './authentication.constant';
+import { LoginUserDto, CreateUserDto, AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from '@project/shared/app/dto';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
-import { LoginUserDto } from './dto/login-user.dto';
 import { jwtConfig } from '@project/shared/config/account';
 
 @Injectable()

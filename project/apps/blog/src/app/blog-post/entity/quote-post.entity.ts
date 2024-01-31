@@ -2,7 +2,7 @@ import { QuotePost } from '@project/libs/shared/app/types';
 import { PostType } from '.prisma/client';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
-import { CreateQuotePostDto } from '../dto/create-quote-post.dto';
+import { CreateQuotePostDto } from '@project/shared/app/dto';
 import { BasePostEntity } from './base-post.entity';
 
 export class QuotePostEntity extends BasePostEntity implements QuotePost, Entity<string, QuotePost> {

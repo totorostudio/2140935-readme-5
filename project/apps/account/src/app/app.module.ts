@@ -17,5 +17,6 @@ import { NotifyModule } from './notify/notify.module';
   ],
   controllers: [],
   providers: [],
+  exports: [BlogUserModule],
 })
 export class AppModule {}
