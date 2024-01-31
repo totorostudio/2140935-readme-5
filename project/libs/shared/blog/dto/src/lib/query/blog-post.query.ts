@@ -1,9 +1,8 @@
 import { Transform } from 'class-transformer';
 import { IsArray, IsIn, IsNumber, IsOptional, IsUUID } from 'class-validator';
 
-import { DEFAULT_PAGE_COUNT, DEFAULT_POST_COUNT_LIMIT, DEFAULT_SORT_DIRECTION } from '../blog-post.constant';
+import { DEFAULT_PAGE_COUNT, DEFAULT_POST_COUNT_LIMIT, DEFAULT_SORT_DIRECTION } from './blog-post.constant';
 import { SortDirection } from '@project/libs/shared/app/types';
-
 
 export class BlogPostQuery {
   @Transform(({ value }) => +value || DEFAULT_POST_COUNT_LIMIT)

@@ -1,20 +1,22 @@
-import { PostType, Post } from '@project/libs/shared/app/types';
+import { Post } from '@project/libs/shared/app/types';
+import { PostType } from '.prisma/client';
 import { QuotePostEntity, LinkPostEntity, PhotoPostEntity, TextPostEntity, VideoPostEntity } from './entity/index';
-import { BlogPostEntity } from './entity/blog-post.entity';
+
+export type BlogPostEntityType = TextPostEntity | VideoPostEntity | LinkPostEntity | PhotoPostEntity | QuotePostEntity;
 
 export const PostEntityAdapter = {
-  [PostType.TEXT]: TextPostEntity,
-  [PostType.VIDEO]: VideoPostEntity,
-  [PostType.QUOTE]: QuotePostEntity,
-  [PostType.PHOTO]: PhotoPostEntity,
-  [PostType.LINK]: LinkPostEntity,
+  [PostType.text]: TextPostEntity,
+  [PostType.video]: VideoPostEntity,
+  [PostType.quote]: QuotePostEntity,
+  [PostType.photo]: PhotoPostEntity,
+  [PostType.link]: LinkPostEntity,
 }
 
-export function PostEntityFactory (post: Post): BlogPostEntity {
+export function PostEntityFactory (post: Post): BlogPostEntityType {
   const PostEntityConstructor = PostEntityAdapter[post.type];
 
   if (PostEntityConstructor) {
-    return new (PostEntityConstructor as new (post: Post) => BlogPostEntity)(post);
+    return new (PostEntityConstructor as new (post: Post) => BlogPostEntityType)(post);
   } else {
     throw new Error(`Unsupported post type: ${post.type}`);
   }

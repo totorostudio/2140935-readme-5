@@ -4,13 +4,11 @@ import { Prisma } from '@prisma/client';
 import { PaginationResult, Post } from '@project/libs/shared/app/types';
 import { PrismaClientService } from '@project/shared/blog/models';
 import { BasePostgresRepository } from '@project/shared/core';
-import { BlogPostEntity } from './entity/blog-post.entity';
-import { BlogPostQuery } from './query/blog-post.query';
-import { PostEntityFactory } from './post-entity.factory';
+import { BlogPostQuery } from '@project/shared/blog/dto';
+import { PostEntityFactory, BlogPostEntityType } from './post-entity.factory';
 
-//TODO Разобраться с типами
 @Injectable()
-export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, Post> {
+export class BlogPostRepository extends BasePostgresRepository<BlogPostEntityType, Post> {
   constructor(
     protected readonly client: PrismaClientService,
   ) {
@@ -25,7 +23,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     return Math.ceil(totalCount / limit);
   }
 
-  public async save(entity: BlogPostEntity): Promise<BlogPostEntity> {
+  public async save(entity: BlogPostEntityType): Promise<BlogPostEntityType> {
     const pojoEntity = entity.toPOJO();
     const record = await this.client.post.create({
       data: {
@@ -56,7 +54,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     });
   }
 
-  public async findById(id: string): Promise<BlogPostEntity> {
+  public async findById(id: string): Promise<BlogPostEntityType> {
     const document = await this.client.post.findFirst({
       where: {
         id,
@@ -74,7 +72,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     return this.createEntityFromDocument(document);
   }
 
-  public async update(id: string, entity: BlogPostEntity): Promise<BlogPostEntity> {
+  public async update(id: string, entity: BlogPostEntityType): Promise<BlogPostEntityType> {
     const pojoEntity = entity.toPOJO();
     const updatedPost = await this.client.post.update({
       where: { id },
@@ -93,7 +91,7 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntity, P
     return this.createEntityFromDocument(updatedPost);
   }
 
-  public async find(query?: BlogPostQuery): Promise<PaginationResult<BlogPostEntity>> {
+  public async find(query?: BlogPostQuery): Promise<PaginationResult<BlogPostEntityType>> {
     const skip = query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;
     const where: Prisma.PostWhereInput = {};
