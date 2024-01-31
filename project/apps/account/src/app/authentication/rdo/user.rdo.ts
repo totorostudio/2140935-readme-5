@@ -29,4 +29,10 @@ export class UserRdo {
   })
   @Expose()
   public name: string;
+
+  @ApiProperty({
+    description: 'User register date'
+  })
+  @Expose()
+  public dateRegister: string;
 }

@@ -4,7 +4,7 @@ import { Prisma } from '@prisma/client';
 import { PaginationResult, Post } from '@project/libs/shared/app/types';
 import { PrismaClientService } from '@project/shared/blog/models';
 import { BasePostgresRepository } from '@project/shared/core';
-import { BlogPostQuery } from '@project/shared/blog/dto';
+import { BlogPostQuery, SearchQuery } from '@project/shared/app/dto';
 import { PostEntityFactory, BlogPostEntityType } from './post-entity.factory';
 
 @Injectable()
@@ -128,5 +128,28 @@ export class BlogPostRepository extends BasePostgresRepository<BlogPostEntityTyp
       itemsPerPage: take,
       totalItems: postCount,
     }
+  }
+
+  public async search({ title, limit }: SearchQuery): Promise<BlogPostEntityType[]> {
+    const records = await this.client.post.findMany({
+      where: {
+        title: {
+          contains: title
+        },
+      },
+      take: limit,
+      include: {
+        tags: true,
+        comments: true,
+        _count: {
+          select: {
+            tags: true,
+            comments: true
+          },
+        },
+      },
+    });
+
+    return records.map(({ _count, ...record }) => this.createEntityFromDocument({ ...record, commentsCount: _count.comments }));
   }
 }

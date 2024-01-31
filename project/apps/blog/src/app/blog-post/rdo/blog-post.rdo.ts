@@ -31,6 +31,13 @@ export class BlogPostRdo {
   public title: string;
 
   @ApiProperty({
+    description: 'Description of this post',
+    example: 'Some description about this post',
+  })
+  @Expose()
+  public description?: string;
+
+  @ApiProperty({
     description: 'Is post a repost?',
     example: false,
   })
@@ -94,13 +101,6 @@ export class BlogPostRdo {
   })
   @Expose()
   public comments: Comment[]
-
-  @ApiProperty({
-    description: 'Description of this post',
-    example: 'Some description about this post',
-  })
-  @Expose()
-  public description?: string;
 
   @ApiProperty({
     description: 'Post content',

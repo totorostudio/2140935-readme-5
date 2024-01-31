@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, UseGuards, Req, HttpCode } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthenticationService } from './authentication.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '@project/shared/app/dto';
 import { fillDto } from '@project/shared/helpers';
 import { UserRdo } from './rdo/user.rdo';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';

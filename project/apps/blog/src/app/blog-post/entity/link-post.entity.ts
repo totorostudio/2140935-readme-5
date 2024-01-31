@@ -2,7 +2,7 @@ import { LinkPost } from '@project/libs/shared/app/types';
 import { PostType } from '.prisma/client';
 import { Entity } from '@project/shared/core';
 import { BlogTagEntity } from '../../blog-tag/blog-tag.entity';
-import { CreateLinkPostDto } from '../dto/create-link-post.dto';
+import { CreateLinkPostDto } from '@project/shared/app/dto';
 import { BasePostEntity } from './base-post.entity';
 
 export class LinkPostEntity extends BasePostEntity implements LinkPost, Entity<string, LinkPost> {

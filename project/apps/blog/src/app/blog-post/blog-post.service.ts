@@ -1,12 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { BlogPostRepository } from './blog-post.repository';
-import { CreateBlogPostDtoType } from './dto/create-blog-post.dto';
-import { BlogPostQuery } from '@project/shared/blog/dto';
+import { CreateBlogPostDtoType, UpdateBlogPostDtoType, SearchQuery } from '@project/shared/app/dto';
+import { BlogPostQuery } from '@project/shared/app/dto';
 import { PaginationResult } from '@project/libs/shared/app/types';
-import { UpdateBlogPostDtoType } from './dto/update-blog-post.dto';
 import { BlogTagService } from '../blog-tag/blog-tag.service';
 import { PostEntityFactory, BlogPostEntityType } from './post-entity.factory';
+import { PostsError } from './post.constant';
 
 @Injectable()
 export class BlogPostService {
@@ -66,5 +65,26 @@ export class BlogPostService {
     }
 
     return this.blogPostRepository.update(id, existsPost);
+  }
+
+  public async repost(id: string, userId: string): Promise<BlogPostEntityType> {
+    const originalPostEntity = await this.blogPostRepository.findById(id);
+
+    if (originalPostEntity.isRepost) {
+      throw new BadRequestException(PostsError.AlreadyReposted)
+    }
+
+    originalPostEntity.userId = userId;
+    originalPostEntity.isRepost = true;
+    originalPostEntity.originalId = originalPostEntity.id;
+    originalPostEntity.originalAuthor = originalPostEntity.userId;
+
+    await this.blogPostRepository.save(originalPostEntity);
+
+    return originalPostEntity;
+  }
+
+  async getPostsBySearch(search: SearchQuery): Promise<BlogPostEntityType[]> {
+    return await this.blogPostRepository.search(search);
   }
 }

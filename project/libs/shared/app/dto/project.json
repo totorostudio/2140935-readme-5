@@ -1,21 +1,21 @@
 {
-  "name": "shared-blog-dto",
+  "name": "shared-app-dto",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/blog/dto/src",
+  "sourceRoot": "libs/shared/app/dto/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared/blog/dto/**/*.ts"]
+        "lintFilePatterns": ["libs/shared/app/dto/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/shared/blog/dto/jest.config.ts"
+        "jestConfig": "libs/shared/app/dto/jest.config.ts"
       }
     }
   },
