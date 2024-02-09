@@ -28,7 +28,7 @@ export class BlogPostController {
       ...postsWithPagination,
       entities: postsWithPagination.entities.map((post) => post.toPOJO()),
     }
-    return fillDto(BlogPostWithPaginationRdo<BlogPostRdo>, result);
+    return fillDto(BlogPostWithPaginationRdo, result);
   }
 
   @ApiResponse({

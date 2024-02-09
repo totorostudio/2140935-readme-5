@@ -66,6 +66,6 @@ volumes:
   readme.notify.mongodb:
 
 # docker compose --file ./apps/notify/docker-compose.dev.yml --project-name "readme-notify" up -d
-# docker compose --file ./apps/notify/docker-compose.dev.yml --env-file ./apps/notify/.notify.env --project-name "readme-notify" up -d
+# docker compose --file ./apps/notify/docker-compose.dev.yml --env-file ./apps/notify/notify.env --project-name "readme-notify" up -d
 # docker compose --file ./apps/notify/docker-compose.dev.yml --project-name "readme-notify" down -v
 # docker system prune -a

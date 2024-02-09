@@ -23,12 +23,12 @@ export class BlogPostRdo {
   @Expose()
   public type: PostType;
 
-  @ApiProperty({
+  /*@ApiProperty({
     description: 'Title of this post',
     example: 'Some title of this post',
   })
   @Expose()
-  public title: string;
+  public title: string;*/
 
   @ApiProperty({
     description: 'Description of this post',
